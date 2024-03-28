@@ -35,4 +35,18 @@ Tratamos os outliers de acordo com o perfil da pessoa com base na pergunta 4, e 
 - Tratamos os valores de texto transformando-os em valores numéricos usando o Label Encondig na coluna "bairro", e de forma manual atribuindo valores para as colunas "bairro_group" e "room_type" de acordo com a média dos preços. Atribuindo 1 para o grupo de bairro e o tipo de quarto mais caro, e assim por diante.
 
 ## Etapa 6: Modelo de Previsão - Padronizando os dados e escolhendo o nosso modelo
-- Padronizamos os dados com o StandardScaler e testamos os modelos Random Forest Regressor, Linear Regression, Extra Trees Regressor.
+- Padronizamos os dados com o StandardScaler e testamos os modelos Random Forest Regressor, Linear Regression, Extra Trees Regressor. O melhor modelo foi o LinearRegression com pontuação de 0.42 para treino e 0.43 para teste. Tanto o modelo RandomForestRegressor quanto o ExtraTreesRegressor tiveram overfitting de dados, a diferença enrte os resultados de treino e teste é significativa. RandomForestRegressor com 0.93 para treino, mas 0.50 para teste. E ExtraTreesRegressor com 0.99 para treino, mas 0.47 para teste.
+- Depois testamos com o RidgeRegression e com o XGBRgressor.
+- Usando o GridSearchCV, configuramos os hiperparametros do XBGRegressor. O resultado foi uma pontuação de 0.56 para treino e 0.54 para teste. Depois geramos um gráfico para a visualização das previsões.
+
+## Etapa 7: Construindo um sistema simples de previsão
+Para resolver a última pergunta pegamos as informações pelo ID. 
+
+OBS: Antes disso transformamos em uma tabela .csv, o dataframe "df_modelo". O objetivo é pegar a tabela já com todas as colunas tratadas e transformadas em numéricas, só que ainda com o seu respectivo ID, para que pelo ID fosse possível pegar os valores já tratados e passar pelo nosso sistema de previsão simples feito acima.
+
+Obstáculos: bairro_group, bairro, room_type (precisa converter para numérico)
+
+---> teríamos que converter cada coluna em numérico
+---> esse seria um dos obstáculos, mas foi resolvido pela solução acima.
+
+## Etapa 8: Salvando o nosso modelo e nosso padronizador com o Pickle
