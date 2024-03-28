@@ -32,6 +32,7 @@ Tratamos os outliers de acordo com o perfil da pessoa com base na pergunta 4, e 
 
 ## Etapa 5: Enconding dos dados
 - Nessa etapa retiramos as colunas desnecessárias para o nosso modelo de machine learning, como ID, nome, host name e ultima review. 
-- Tratamos os valores de texto transformando-os em valores numéricos usando o Label Encondig na coluna "bairro", e de forma manual atribuindo valores para as colunas "bairro_group" e "room_type" de acordo com a média dos preços.
+- Tratamos os valores de texto transformando-os em valores numéricos usando o Label Encondig na coluna "bairro", e de forma manual atribuindo valores para as colunas "bairro_group" e "room_type" de acordo com a média dos preços. Atribuindo 1 para o grupo de bairro e o tipo de quarto mais caro, e assim por diante.
 
 ## Etapa 6: Modelo de Previsão - Padronizando os dados e escolhendo o nosso modelo
+- Padronizamos os dados com o StandardScaler e testamos os modelos Random Forest Regressor, Linear Regression, Extra Trees Regressor.
