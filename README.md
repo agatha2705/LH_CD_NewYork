@@ -22,40 +22,47 @@ Aqui entra uma **análise mais aprofundada e mais visual** dos dados. Nessa etap
        >
        > **3º** Harlem (Manhattan)
 
-     - **Segundo** comparamos o preço médio de aluguel nesses três bairros --> **Bedford-Stuyvesant é o TOP 2 de bairros e o preço médio na região é melhor que no Williamsburg e em Harlem**.
+     - **Segundo** comparamos o preço médio de aluguel nesses três bairros --> **Bedford-Stuyvesant** é o **TOP 2** de bairros e o **preço médio** na região é melhor que no Williamsburg e em Harlem.
      - **Terceiro**, o que justificaria Manhattan mesmo com o preço muito mais elevado possuir mais impressões? Seria por exemplo, **um único host possuir muitos imóveis**. Gerando um gráfico do TOP 5 hosts que mais aparecem e filtrando para saber onde esse host possui mais imóveis vemos que o total de 327 imóveis é só de Manhattan. Assim como o segundo host, que de 232, 230 são só de Manhattan.
 
-- Então com base nos resultados, **Brooklyn - Bedford_Stuyvesant** seria o mais indicado considerando o preço e a preferência das pessoas ao escolherem esse lugar.
+> Então com base nos resultados, **Brooklyn - Bedford_Stuyvesant** seria o mais indicado considerando o preço e a preferência das pessoas ao escolherem esse lugar.
 
 
 2. ### O número mínimo de noites e a disponibilidade ao longo do ano interferem no preço?
-     - Fazendo a correlação das colunas com a nossa coluna target("price"), embora a correlação das colunas "minimo_noites" e "disponibilidade_365" sejam altas em comparação ao restante, **essa correlação ainda é baixa**, portanto, não interfere muito no preço dos imóveis em Nova York.
-       
+     - Fazendo a **correlação** das colunas **com a nossa coluna target("price")**, embora a correlação das colunas "minimo_noites" e "disponibilidade_365" sejam altas em comparação ao restante, **essa correlação ainda é baixa**.
+
+> Portanto, o número mínimo de noites e a disponibilidade ao longo do ano, interferem muito pouco no preço dos imóveis em Nova York.
+
 3. ### Existe algum padrão no texto do nome do local para lugares de mais alto valor?
-     - Primeiro conferimos se não havia correlação com o nome dos bairros, vimos que não há correlação. Então vimos o nome dos locais.
-     - Retirando **palavras comuns** como "the", "in", "at", "is", "to", "with". Retirando **pontuações** como ".", ",", "/". E por fim retirando **números**. A conclusão é que existe sim um padrão no texto do nome do local para lugares de mais alto valor.
-  
+     - **Primeiro** conferimos se não havia correlação com o nome dos bairros, vimos que não há correlação. Então vimos o nome dos locais.
+     - Retirando **palavras comuns** como `"the", "in", "at", "is", "to", "with"`. Retirando **pontuações** como `".", ",", "/"`. E por fim retirando **números**, `0123456789`:
 
        - **Palavras como:**   
-       > **Luxury**
+       > - **Luxury**
        > 
-       > **Townhouse** - que seria um estilo que une uma ou mais casas de forma proporcional e simetrica
+       > - **Townhouse** - que seria um estilo que une uma ou mais casas de forma proporcional e simetrica
        > 
-       > **Penthouse** - que seria a famosa cobertura
+       > - **Penthouse** - que seria a famosa cobertura
        >
-       > localizações como **"NYC", "Manhattan" e "Brooklyn** - o que faz sentido com a análise na primeira pergunta.
+       > - localizações como **"NYC", "Manhattan" e "Brooklyn** - o que faz sentido com a análise na primeira pergunta.
+       > 
+> A conclusão é que: **Existe sim um padrão no texto do nome do local para lugares de mais alto valor**.
       
 4. ### Supondo um apartamento com as seguintes características, qual seria a sugestão de preço? (Antes de responder essa pergunta precisamos do nosso modelo de machine learning).
 
 ## Etapa 4: Tratando Outliers
-Tratamos os outliers de acordo com o **perfil da pessoa** com base na pergunta 4, e nas **características fornecidas**. Optamos por retirar os outliers porque *primeiro*, o perfil da pessoa de acordo com as caracteísticas fornecidas é mais **comum**, e *segundo* que, se formos ver na etapa do EDA, a **diferença do preço** mínimo e máximo dos imóveis é discrepante variando de `0 ~ 10.000`, o que pode atrapalhar o nosso modelo de previsão.
+Tratamos os outliers de acordo com o **perfil da pessoa** com base na pergunta 4, e nas **características fornecidas**. 
+- **Optamos por retirar os outliers porque:**
+  > **1.** O perfil da pessoa de acordo com as caracteísticas fornecidas é mais **"comum"**.
+  > 
+  > **2.** Se formos ver na etapa do EDA, a **diferença do preço** mínimo e máximo dos imóveis é **discrepante** variando de **0 ~ 10.000**, o que pode atrapalhar o nosso modelo de previsão.
 
 ## Etapa 5: Enconding dos dados
 - Nessa etapa **retiramos as colunas desnecessárias** para o nosso modelo de machine learning, como **ID, nome, host name e ultima review**. 
-- Tratamos os **valores de texto** transformando-os **em valores numéricos** usando o `Label Encondig` na coluna `"bairro"`, e de forma `manual` atribuindo valores para as colunas `"bairro_group"` e `"room_type"` de acordo com a **média dos preços**. Atribuindo 1 para o grupo de bairro e o tipo de quarto mais caro, e assim por diante.
+- Tratamos os **valores de texto** transformando-os **em valores numéricos** usando o `Label Encondig` na coluna **"bairro"**, e de forma `manual` atribuindo valores para as colunas **"bairro_group"** e **"room_type"** de acordo com a **média dos preços**. Atribuindo 1 para o grupo de bairro e o tipo de quarto mais caro, e assim por diante.
 
 ## Etapa 6: Modelo de Previsão - Padronizando os dados e escolhendo o nosso modelo
-- Padronizamos os dados com o `StandardScaler` e testamos os modelos Random Forest Regressor, Linear Regression, Extra Trees Regressor. O **melhor modelo foi o LinearRegression** com pontuação de 0.42 para treino e 0.43 para teste. Tanto o modelo **RandomForestRegressor quanto o ExtraTreesRegressor tiveram *overfitting* de dados**, a diferença enrte os resultados de treino e teste é significativa.
+- **Padronizamos** os dados com o **`StandardScaler`** e testamos os modelos Random **Forest Regressor**, **Linear Regression**, **Extra Trees Regressor**. O **melhor modelo foi o LinearRegression** com pontuação de 0.42 para treino e 0.43 para teste. Tanto o modelo RandomForestRegressor quanto o ExtraTreesRegressor tiveram ***overfitting* de dados**, a diferença enrte os resultados de treino e teste é significativa.
 
   
   > **`Linear Regression`** com **0.42** para treino e **0.43** para teste.
@@ -64,13 +71,14 @@ Tratamos os outliers de acordo com o **perfil da pessoa** com base na pergunta 4
   >
   > **`ExtraTreesRegressor`** com **0.99** para treino, mas **0.47** para teste.
 
-- Depois testamos com o **RidgeRegression** e com o **XGBRgressor**.
+- Depois testamos com o **RidgeRegression** e com o **XGBRegressor**.
 - Usando o **`GridSearchCV`**, configuramos os **hiperparametros do XBGRegressor** e depois geramos um gráfico para a visualização das previsões.
      - **O resultado foi:**
-     > **`XGBRgressor`** com uma pontuação de **0.56** para treino e **0.54** para teste. 
+     > **`XGBRegressor`** com uma pontuação de **0.56** para treino e **0.54** para teste. 
 
 ## Etapa 7: Construindo um sistema simples de previsão
-- Para resolver a última pergunta pegamos as informações pelo **ID**. 
+> Nessa etapa construímos um `sitema simples` que tem como **entrada**, o **input_data**, e como **saída**, ele retorna como reposta, **se aquele indivíduo possui ou não algum risco cardiovascular ou de insuficiência cardíaca**.
+- E Para resolver a **última pergunta** pegamos as informações pelo **ID**. 
 
 OBS: Antes disso transformamos em uma tabela .csv, o dataframe "df_modelo". O objetivo é pegar a tabela já com todas as colunas tratadas e transformadas em numéricas, só que ainda com o seu respectivo ID, para que pelo ID fosse possível pegar os valores já tratados e passar pelo nosso sistema de previsão simples feito acima.
 
@@ -78,6 +86,6 @@ Obstáculos: bairro_group, bairro, room_type (precisa converter para numérico)
 
 ---> teríamos que converter cada coluna em numérico
 ---> esse seria um dos obstáculos, mas foi resolvido pela solução acima.
-
+> Como resultado do nosso sistema de previsão simples, a sugestão de preço foi de US$216.71
 ## Etapa 8: Salvando o nosso modelo e nosso padronizador com o Pickle
-Nessa última etapa salvamos o nosso modelo escolhido: o `XGBRegressor`. E o nosso padronizador de dados: `StandardScaler`.
+Nessa última etapa salvamos o nosso modelo escolhido: o **`XGBRegressor`**. E o nosso padronizador de dados: **`StandardScaler`**.
